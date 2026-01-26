@@ -1,10 +1,74 @@
 #include <iostream>
 #include <lodepng.h>
 
+int Yinput1 = 0;
+int Yinput2 = 0;
+int Xinput1 = 0;
+int Xinput2 = 0;
+
+int Rvalue = 0;
+int Gvalue = 0;
+int Bvalue = 0;
+int Avalue = 0;
+
+//void SetPixles() {
+
+
+//	/*std::cout << "Please enter the starting range for Y \n";
+//	std::cin >> Yinput1;
+//	std::cout << "Y starting range is " << Yinput1 << "\n";
+//
+//	std::cout << "Please enter the end range for Y \n";
+//	std::cin >> Yinput2;
+//	std::cout << "Y end range is " << Yinput2 << "\n";
+//
+//	std::cout << "Please enter the starting range for X \n";
+//	std::cin >> Xinput1;
+//	std::cout << "X starting range is " << Xinput1 << "\n";
+//
+//	std::cout << "Please enter the end range for X \n";
+//	std::cin >> Xinput2;
+//	std::cout << "X end range is " << Xinput2 <<"\n";
+//
+//	std::cout << "Please enter a value for Red (0-255) \n";
+//	std::cin >> Rvalue;
+//	std::cout << "Red value is " << Rvalue << "\n";
+//
+//	std::cout << "Please enter a value for Green (0-255) \n";
+//	std::cin >> Gvalue;
+//	std::cout << "Green value is " << Gvalue << "\n";
+//
+//	std::cout << "Please enter a value for Blue (0-255) \n";
+//	std::cin >> Bvalue;
+//	std::cout << "Blue value is " << Bvalue << "\n";
+//
+//	std::cout << "Please enter a value for Opacity (0-255) \n";
+//	std::cin >> Avalue;
+//	std::cout << "Opacity value is " << Avalue << "\n";
+//}*/
+
+
+void SetPixel(std::vector<uint8_t>& buffer, int x, int y, int r, int g, int b, int a) {
+
+	const int nChannels = 4;
+
+	int pixelIdx = x + y;
+	int base = pixelIdx * nChannels;
+
+	buffer[base + 0] = r;
+	buffer[base + 1] = g;
+	buffer[base + 2] = b;
+	buffer[base + 3] = a;
+
+	
+
+}
 
 int main()
 {
 	std::string outputFilename = "output.png";
+
+	//SetPixles();
 
 	const int width = 1920, height = 1080;
 	const int nChannels = 4;
@@ -16,7 +80,18 @@ int main()
 	std::vector<uint8_t> imageBuffer(height*width*nChannels);
 
 	// This for loop sets all the pixels of the image to a cyan colour. 
-	for(int y = 0; y < height; ++y) 
+	for (int y = 0; y < height; ++y)
+		for (int x = 0; x < width; ++x) {
+			int pixelIdx = x + y * width;
+			imageBuffer[pixelIdx * nChannels + 0] = 0; // Set red pixel values to 0
+			imageBuffer[pixelIdx * nChannels + 1] = 255; // Set green pixel values to 255 (full brightness)
+			imageBuffer[pixelIdx * nChannels + 2] = 255; // Set blue pixel values to 255 (full brightness)
+			imageBuffer[pixelIdx * nChannels + 3] = 255; // Set alpha (transparency) pixel values to 255 (fully opaque)
+		}
+
+	SetPixel(imageBuffer, 5, 5, 255, 0, 0, 255);
+
+	for (int y = 0; y < height; ++y) 
 		for (int x = 0; x < width; ++x) {
 			int pixelIdx = x + y * width;
 			imageBuffer[pixelIdx * nChannels + 0] = 0; // Set red pixel values to 0
