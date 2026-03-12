@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "../../../../../../../nodejsProject/myGame/Assets"
+		},
+		{
+			"path": "../../../../../../../nodejsProject/myGame/Presentation"
+		},
+		{
+			"path": "../../../../../../../nodejsProject/myGame/Database"
+		}
+	]
+}
